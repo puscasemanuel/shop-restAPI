@@ -29,6 +29,7 @@ app.use('/public', express.static('public'));
 app.use('/api/v1/products', require('./routes/products'));
 // app.use('/api/v1/users', require('./routes/users'));
 app.use('/api/v1/auth', require('./routes/auth'));
+app.use('/api/v1/admin', require('./routes/admin'));
 
 const port = process.env.PORT || 4000;
 
