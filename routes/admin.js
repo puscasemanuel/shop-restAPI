@@ -4,17 +4,23 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-const checkRole = (req, res, next) => {
-  if (req.user.role === 'basic') {
-    return res.status(401).json({
-      status: 'Not authorized',
-      message: "You don't have access to this!",
-    });
-  } else if (req.user.role === 'admin') {
-    next();
-  }
-};
-
-router.get('/', authController.protect, checkRole, adminController.test);
+router.post(
+  '/',
+  authController.protect,
+  authController.checkRole,
+  adminController.addProduct
+);
+router.put(
+  '/:id',
+  authController.protect,
+  authController.checkRole,
+  adminController.editProduct
+);
+router.delete(
+  '/:id',
+  authController.protect,
+  authController.checkRole,
+  adminController.deleteProduct
+);
 
 module.exports = router;
