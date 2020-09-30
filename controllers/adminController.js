@@ -1,9 +1,10 @@
 const Product = require('../models/Product');
 
 exports.addProduct = async (req, res) => {
+  let fileUrl = req.file.path.replace(/\\/g, '/');
   const data = {
     title: req.body.title.trim(),
-    img: req.body.img.trim(),
+    img: fileUrl,
     price: req.body.price,
     company: req.body.company.trim(),
     info: req.body.info,
