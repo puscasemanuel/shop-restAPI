@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
   };
-  if (data.length > 0) {
+  if (data) {
     if (data.password === data.confirmPassword) {
       data.password = await bcrypt.hash(data.password, 12);
     } else {
@@ -129,5 +129,16 @@ exports.protect = async (req, res, next) => {
       status: 'fail',
       message: 'You have to login first!',
     });
+  }
+};
+
+exports.checkRole = (req, res, next) => {
+  if (req.user.role === 'basic') {
+    return res.status(401).json({
+      status: 'Not authorized',
+      message: "You don't have access to this!",
+    });
+  } else if (req.user.role === 'admin') {
+    next();
   }
 };
