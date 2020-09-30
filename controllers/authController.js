@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
   };
-  if (data.length > 0) {
+  if (data) {
     if (data.password === data.confirmPassword) {
       data.password = await bcrypt.hash(data.password, 12);
     } else {
