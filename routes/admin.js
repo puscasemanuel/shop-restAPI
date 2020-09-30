@@ -10,8 +10,9 @@ const checkRole = (req, res, next) => {
       status: 'Not authorized',
       message: "You don't have access to this!",
     });
+  } else if (req.user.role === 'admin') {
+    next();
   }
-  next();
 };
 
 router.get('/', authController.protect, checkRole, adminController.test);
